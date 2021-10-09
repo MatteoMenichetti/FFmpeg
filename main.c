@@ -25,10 +25,7 @@ int main() {
     FILE *fp = fopen("../name.txt", "r");
     char line[100], *tokstring;
     while (fgets(line, sizeof(line), fp) != NULL) {
-        while ((tokstring = strtok(line, DELIMITER)) != NULL) {
-
-        }
-        printf("Hello, World!\n");
-        return 0;
+        while ((tokstring = strtok(line, DELIMITER)) != NULL)
+            return 0;
     }
 }
