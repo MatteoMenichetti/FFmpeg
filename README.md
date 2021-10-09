@@ -1,0 +1,2 @@
+This project supply a simple compressor (runnable on shell) of files (audio or video) based on ffmpeg. This is a work in
+progress so this file will update while the project will develop after each substantial update
