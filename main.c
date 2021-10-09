@@ -6,40 +6,28 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-struct LinkedList {
-    char *token;
-    struct LinkedList *next;
-};
-struct LL {
-    struct LinkedList *this;
-    struct LL *next;
-};
+#define DELIMITER "/\n"
+//LinkedListOfPath had the scope of concat all path find by shell script
+typedef struct LLOfPath {
+    char *part;
+    struct LLOfPath *next;
+} LOP;
+typedef struct LLListOfPart {
+    struct LLOfPath *this;
+    struct LLListOfPart *next;
+} ListLOP;
 
-int main(int argv, char *argc[]) {
+int main() {
+    //execution of script (for instruction follow the description)
     if (!fork()) {
         execlp("bash", "bash", "../bash.sh", (char *) NULL);
     }
-    FILE *fp = fopen("name.txt", "r");
-    struct LinkedList *first, *actual;
-    struct LL *list = calloc(1, sizeof(struct LL)), *firstLL=list;
-    char line[100];
+    FILE *fp = fopen("../name.txt", "r");
+    char line[100], *tokstring;
     while (fgets(line, sizeof(line), fp) != NULL) {
-        first = (struct LinkedList *) calloc(1, sizeof(struct LinkedList));
-        actual = first;
-        printf("first assignment\n");
-        actual->token = strtok(line, "/");
-        actual->next = (struct LinkedList *) calloc(1, sizeof(struct LinkedList));
-        actual = actual->next;
-        while ((actual->token = strtok(NULL, "/")) != NULL) {
-            printf("next assignment\n");
-            actual->next = (struct LinkedList *) calloc(1, sizeof(struct LinkedList));
-            actual = actual->next;
+        while ((tokstring = strtok(line, DELIMITER)) != NULL) {
+
         }
-        free(actual);
-        list->this = first;
-        list->next = (struct LL *) calloc(1, sizeof(struct LL));
+        printf("Hello, World!\n");
+        return 0;
     }
-    for (firstLL = firstLL; firstLL != NULL; firstLL = firstLL->next)printf("%s, ", firstLL->this);
-    printf("Hello, World!\n");
-    return 0;
-}
